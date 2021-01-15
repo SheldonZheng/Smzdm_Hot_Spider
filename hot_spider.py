@@ -51,7 +51,7 @@ def is_data_existed(result):
     db = pymysql.connect(database_ip_and_port, database_username, database_password, database_name)
     cursor = db.cursor()
     tempResult = sorted(result.items(), key=lambda result: result[0])
-    sql = "SELECT * FROM smzdm_hot_record where md5 = '%s'" % \
+    sql = "SELECT * FROM smzdm_hot_record where md5 = '%s' and TIMESTAMPDIFF(HOUR,created_at,now()) < 24" % \
           md5(str(tempResult))
 
     print(md5(str(tempResult)))
